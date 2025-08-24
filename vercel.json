@@ -1,7 +1,7 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "framework": "expo",
+  "framework": "react",
   "rewrites": [
     {
       "source": "/(.*)",
