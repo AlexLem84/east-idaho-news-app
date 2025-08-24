@@ -82,12 +82,24 @@ const FEATURED_COLUMNS: Category[] = [
 ];
 
 export default function DualCategoryTabs({ onCategorySelect, selectedCategory }: DualCategoryTabsProps) {
-  const [activeTab, setActiveTab] = useState<TabType>('regular');
+  // Determine active tab based on selected category
+  const getActiveTabFromCategory = (category: Category): TabType => {
+    if (REGULAR_CATEGORIES.some(cat => cat.id === category.id)) {
+      return 'regular';
+    } else if (FEATURED_COLUMNS.some(cat => cat.id === category.id)) {
+      return 'featured';
+    } else if (SPORTS_CATEGORIES.some(cat => cat.id === category.id)) {
+      return 'sports';
+    }
+    return 'regular';
+  };
+
+  // Use the determined active tab
+  const currentActiveTab = getActiveTabFromCategory(selectedCategory);
 
   const handleTabPress = (tab: TabType) => {
     console.log('🔄 Tab pressed:', tab);
-    setActiveTab(tab);
-    console.log('🔄 Active tab set to:', tab);
+    console.log('🔄 Will call onCategorySelect with:', tab);
     
     if (tab === 'regular') {
       // For regular categories, use the first one
@@ -114,16 +126,16 @@ export default function DualCategoryTabs({ onCategorySelect, selectedCategory }:
 
   const getCurrentCategories = () => {
     let categories: Category[];
-    if (activeTab === 'regular') {
+    if (currentActiveTab === 'regular') {
       categories = REGULAR_CATEGORIES;
-    } else if (activeTab === 'featured') {
+    } else if (currentActiveTab === 'featured') {
       categories = FEATURED_COLUMNS;
-    } else if (activeTab === 'sports') {
+    } else if (currentActiveTab === 'sports') {
       categories = SPORTS_CATEGORIES;
     } else {
       categories = REGULAR_CATEGORIES;
     }
-    // console.log('📋 Current categories for tab:', activeTab, categories.length, 'categories');
+    // console.log('📋 Current categories for tab:', currentActiveTab, categories.length, 'categories');
     return categories;
   };
 
@@ -134,7 +146,8 @@ export default function DualCategoryTabs({ onCategorySelect, selectedCategory }:
     return isSelected;
   };
 
-  console.log('🔄 Rendering with activeTab:', activeTab);
+  console.log('🔄 Rendering with currentActiveTab:', currentActiveTab);
+  console.log('🔄 Selected category:', selectedCategory);
   return (
     <View style={styles.container}>
       {/* Tab Selector */}
@@ -142,21 +155,24 @@ export default function DualCategoryTabs({ onCategorySelect, selectedCategory }:
         <TouchableOpacity
           style={[
             styles.tabButton,
-            activeTab === 'regular' && styles.activeTabButton
+            currentActiveTab === 'regular' && styles.activeTabButton
           ]}
-          onPress={() => handleTabPress('regular')}
+          onPress={() => {
+            console.log('🔄 News tab clicked!');
+            handleTabPress('regular');
+          }}
         >
           <View style={styles.tabButtonContent}>
             <Ionicons 
               name="newspaper-outline" 
               size={16} 
-              color={activeTab === 'regular' ? '#ffffff' : '#666'} 
+              color={currentActiveTab === 'regular' ? '#ffffff' : '#666'} 
             />
             <Text style={[
               styles.tabButtonText,
-              activeTab === 'regular' && styles.activeTabButtonText
+              currentActiveTab === 'regular' && styles.activeTabButtonText
             ]}>
-              News
+              News {currentActiveTab === 'regular' ? '(ACTIVE)' : ''}
             </Text>
           </View>
         </TouchableOpacity>
@@ -164,21 +180,24 @@ export default function DualCategoryTabs({ onCategorySelect, selectedCategory }:
         <TouchableOpacity
           style={[
             styles.tabButton,
-            activeTab === 'featured' && styles.activeTabButton
+            currentActiveTab === 'featured' && styles.activeTabButton
           ]}
-          onPress={() => handleTabPress('featured')}
+          onPress={() => {
+            console.log('🔄 Featured tab clicked!');
+            handleTabPress('featured');
+          }}
         >
           <View style={styles.tabButtonContent}>
             <Ionicons 
               name="star-outline" 
               size={16} 
-              color={activeTab === 'featured' ? '#ffffff' : '#666'} 
+              color={currentActiveTab === 'featured' ? '#ffffff' : '#666'} 
             />
             <Text style={[
               styles.tabButtonText,
-              activeTab === 'featured' && styles.activeTabButtonText
+              currentActiveTab === 'featured' && styles.activeTabButtonText
             ]}>
-              Featured
+              Featured {currentActiveTab === 'featured' ? '(ACTIVE)' : ''}
             </Text>
           </View>
         </TouchableOpacity>
@@ -186,21 +205,24 @@ export default function DualCategoryTabs({ onCategorySelect, selectedCategory }:
         <TouchableOpacity
           style={[
             styles.tabButton,
-            activeTab === 'sports' && styles.activeTabButton
+            currentActiveTab === 'sports' && styles.activeTabButton
           ]}
-          onPress={() => handleTabPress('sports')}
+          onPress={() => {
+            console.log('🔄 Sports tab clicked!');
+            handleTabPress('sports');
+          }}
         >
           <View style={styles.tabButtonContent}>
             <Ionicons 
               name="football-outline" 
               size={16} 
-              color={activeTab === 'sports' ? '#ffffff' : '#666'} 
+              color={currentActiveTab === 'sports' ? '#ffffff' : '#666'} 
             />
             <Text style={[
               styles.tabButtonText,
-              activeTab === 'sports' && styles.activeTabButtonText
+              currentActiveTab === 'sports' && styles.activeTabButtonText
             ]}>
-              Sports
+              Sports {currentActiveTab === 'sports' ? '(ACTIVE)' : ''}
             </Text>
           </View>
         </TouchableOpacity>
@@ -208,7 +230,7 @@ export default function DualCategoryTabs({ onCategorySelect, selectedCategory }:
 
       {/* Category Tabs */}
       <ScrollView
-        key={activeTab} // Force re-render when tab changes
+        key={currentActiveTab} // Force re-render when tab changes
         horizontal
         showsHorizontalScrollIndicator={false}
         style={styles.categoryTabs}
