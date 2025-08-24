@@ -1,20 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './src/screens/HomeScreen';
+import ArticleDetailScreen from './src/screens/ArticleDetailScreen';
+import ArchiveScreen from './src/screens/ArchiveScreen';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#e42c29',
+          },
+          headerTintColor: '#ffffff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      >
+        <Stack.Screen 
+          name="Home" 
+          component={HomeScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen 
+          name="ArticleDetail" 
+          component={ArticleDetailScreen}
+          options={{
+            title: 'Article',
+            headerBackTitle: 'Back',
+          }}
+        />
+        <Stack.Screen 
+          name="Archive" 
+          component={ArchiveScreen}
+          options={{
+            title: 'Archive',
+            headerBackTitle: 'Back',
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
