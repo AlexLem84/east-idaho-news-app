@@ -87,6 +87,7 @@ export default function DualCategoryTabs({ onCategorySelect, selectedCategory }:
   const handleTabPress = (tab: TabType) => {
     console.log('🔄 Tab pressed:', tab);
     setActiveTab(tab);
+    console.log('🔄 Active tab set to:', tab);
     
     if (tab === 'regular') {
       // For regular categories, use the first one
@@ -133,6 +134,7 @@ export default function DualCategoryTabs({ onCategorySelect, selectedCategory }:
     return isSelected;
   };
 
+  console.log('🔄 Rendering with activeTab:', activeTab);
   return (
     <View style={styles.container}>
       {/* Tab Selector */}
@@ -261,6 +263,11 @@ const styles = StyleSheet.create({
   },
   activeTabButton: {
     backgroundColor: '#e42c29',
+    shadowColor: '#e42c29',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 4,
   },
   tabButtonText: {
     fontSize: 14,
@@ -289,6 +296,11 @@ const styles = StyleSheet.create({
   },
   categoryTabActive: {
     backgroundColor: '#e42c29',
+    shadowColor: '#e42c29',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
   },
   categoryTabText: {
     fontSize: 12,
