@@ -2,11 +2,14 @@
   "name": "east-idaho-news-app",
   "version": "1.0.0",
   "main": "index.ts",
+  "homepage": "https://alexandrelemoing.github.io/east-idaho-news-app",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "build": "expo export --platform web",
+    "deploy": "npm run build && npx gh-pages -d dist"
   },
   "dependencies": {
     "@expo/metro-runtime": "~5.0.4",
@@ -32,7 +35,8 @@
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@types/react": "~19.0.10",
-    "typescript": "~5.8.3"
+    "typescript": "~5.8.3",
+    "gh-pages": "^6.1.1"
   },
   "private": true
 }
