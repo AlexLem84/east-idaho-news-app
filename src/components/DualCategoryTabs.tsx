@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 interface Category {
   id: string;
@@ -143,12 +144,19 @@ export default function DualCategoryTabs({ onCategorySelect, selectedCategory }:
           ]}
           onPress={() => handleTabPress('regular')}
         >
-          <Text style={[
-            styles.tabButtonText,
-            activeTab === 'regular' && styles.activeTabButtonText
-          ]}>
-            📰 News
-          </Text>
+          <View style={styles.tabButtonContent}>
+            <Ionicons 
+              name="newspaper-outline" 
+              size={16} 
+              color={activeTab === 'regular' ? '#ffffff' : '#666'} 
+            />
+            <Text style={[
+              styles.tabButtonText,
+              activeTab === 'regular' && styles.activeTabButtonText
+            ]}>
+              News
+            </Text>
+          </View>
         </TouchableOpacity>
         
         <TouchableOpacity
@@ -158,12 +166,19 @@ export default function DualCategoryTabs({ onCategorySelect, selectedCategory }:
           ]}
           onPress={() => handleTabPress('featured')}
         >
-          <Text style={[
-            styles.tabButtonText,
-            activeTab === 'featured' && styles.activeTabButtonText
-          ]}>
-            ⭐ Featured
-          </Text>
+          <View style={styles.tabButtonContent}>
+            <Ionicons 
+              name="star-outline" 
+              size={16} 
+              color={activeTab === 'featured' ? '#ffffff' : '#666'} 
+            />
+            <Text style={[
+              styles.tabButtonText,
+              activeTab === 'featured' && styles.activeTabButtonText
+            ]}>
+              Featured
+            </Text>
+          </View>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -173,12 +188,19 @@ export default function DualCategoryTabs({ onCategorySelect, selectedCategory }:
           ]}
           onPress={() => handleTabPress('sports')}
         >
-          <Text style={[
-            styles.tabButtonText,
-            activeTab === 'sports' && styles.activeTabButtonText
-          ]}>
-            🏈 Sports
-          </Text>
+          <View style={styles.tabButtonContent}>
+            <Ionicons 
+              name="football-outline" 
+              size={16} 
+              color={activeTab === 'sports' ? '#ffffff' : '#666'} 
+            />
+            <Text style={[
+              styles.tabButtonText,
+              activeTab === 'sports' && styles.activeTabButtonText
+            ]}>
+              Sports
+            </Text>
+          </View>
         </TouchableOpacity>
       </View>
 
@@ -232,6 +254,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     alignItems: 'center',
   },
+  tabButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   activeTabButton: {
     backgroundColor: '#e42c29',
   },
@@ -239,6 +266,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     color: '#666',
+    marginLeft: 6,
   },
   activeTabButtonText: {
     color: '#ffffff',

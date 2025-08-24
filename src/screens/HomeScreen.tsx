@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, RefreshControl, TouchableOpacity, ActivityIndicator, Platform, Dimensions, Image } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { StackScreenProps } from '@react-navigation/stack';
 import wordpressService, { WordPressPost } from '../services/wordpressService';
 import analyticsService from '../services/analyticsService';
@@ -187,13 +188,13 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
               style={styles.headerButton}
               onPress={() => navigation.navigate('Archive')}
             >
-              <Text style={styles.headerButtonText}>📚</Text>
+              <Ionicons name="library-outline" size={20} color="#666" />
             </TouchableOpacity>
             <TouchableOpacity 
               style={styles.headerButton}
               onPress={() => setShowAnalytics(true)}
             >
-              <Text style={styles.headerButtonText}>📊</Text>
+              <Ionicons name="analytics-outline" size={20} color="#666" />
             </TouchableOpacity>
           </View>
         </View>
@@ -234,10 +235,13 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
         )}
 
         <View style={styles.breakingNews}>
-          <Text style={styles.breakingNewsText}>
-            🔥 BREAKING: Real-time updates from East Idaho News
-            {realtimeStatus && ` • ${realtimeStatus}`}
-          </Text>
+          <View style={styles.breakingNewsContent}>
+            <Ionicons name="flame" size={16} color="#e42c29" />
+            <Text style={styles.breakingNewsText}>
+              BREAKING: Real-time updates from East Idaho News
+              {realtimeStatus && ` • ${realtimeStatus}`}
+            </Text>
+          </View>
         </View>
 
         <View style={styles.articlesContainer}>
@@ -353,7 +357,8 @@ const styles = StyleSheet.create({
   retryButton: { backgroundColor: '#e42c29', paddingHorizontal: 20, paddingVertical: 8, borderRadius: 6 },
   retryButtonText: { color: '#ffffff', fontSize: 14, fontWeight: 'bold' },
   breakingNews: { backgroundColor: '#ff6b6b', padding: 12, margin: 16, borderRadius: 8 },
-  breakingNewsText: { color: '#ffffff', fontWeight: 'bold', textAlign: 'center' },
+  breakingNewsContent: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
+  breakingNewsText: { color: '#ffffff', fontWeight: 'bold', textAlign: 'center', marginLeft: 6 },
   articlesContainer: { padding: 16 },
   articleCard: { 
     backgroundColor: '#ffffff', 
